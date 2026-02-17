@@ -8,31 +8,31 @@ SET search_path TO expoucv_g30030004;
 --Tablas que no dependen de otras
 --Tipo evento
 CREATE TABLE TIPO_EVENTO (
-	cod_tipo_evento INT PRIMARY KEY,
+	cod_tipo_evento INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	nb_tipo_evento VARCHAR(100)
 );
 
 --Categoria
 CREATE TABLE CATEGORIA (
-	cod_categoria INT PRIMARY KEY,
+	cod_categoria INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	nb_categoria VARCHAR(100)
 );
 
 --Tipo stand
 CREATE TABLE TIPO_STAND (
-	cod_tipo_stand INT PRIMARY KEY,
+	cod_tipo_stand INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	nb_tipo_stand VARCHAR(100)
 );
 
 --Pais
 CREATE TABLE PAIS (
-	cod_pais INT PRIMARY KEY,
+	cod_pais INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	nb_pais VARCHAR(100)
 );
 
 --Cliente
 CREATE TABLE CLIENTE (
-	cod_cliente INT PRIMARY KEY,
+	cod_cliente INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	nb_cliente VARCHAR(100),
 	ci_rif VARCHAR(20),
 	telefono VARCHAR(20),
@@ -42,13 +42,13 @@ CREATE TABLE CLIENTE (
 
 --Leyenda estrellas
 CREATE TABLE LEYENDA_ESTRELLAS (
-	cod_leyenda_estrellas INT PRIMARY KEY,
+	cod_leyenda_estrellas INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	nb_descripcion VARCHAR(100)
 );
 
 --Visitante
 CREATE TABLE VISITANTE (
-	cod_visitante INT PRIMARY KEY,
+	cod_visitante INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	cedula VARCHAR(20),
 	nb_visitante VARCHAR(100),
 	sexo CHAR(1),
@@ -58,7 +58,7 @@ CREATE TABLE VISITANTE (
 --Tablas que si depende de otras
 --Subcategoria, tiene referencia a tabla categoria
 CREATE TABLE SUBCATEGORIA (
-	cod_sub_categoria INT PRIMARY KEY,
+	cod_sub_categoria INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	nb_sub_categoria VARCHAR(100),
 	cod_categoria INT,
 
@@ -69,7 +69,7 @@ CREATE TABLE SUBCATEGORIA (
 
 --Ciudad, tiene refencia a tabla pais
 CREATE TABLE CIUDAD (
-	cod_ciudad INT PRIMARY KEY,
+	cod_ciudad INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	nb_ciudad VARCHAR (100),
 	cod_pais INT,
 
@@ -80,7 +80,7 @@ CREATE TABLE CIUDAD (
 
 --Sede, tiene referencia a tabla ciudad
 CREATE TABLE SEDE (
-	cod_sede INT PRIMARY KEY,
+	cod_sede INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	nb_sede VARCHAR(100),
 	cod_ciudad INT,
 
@@ -91,7 +91,7 @@ CREATE TABLE SEDE (
 
 --Evento, tiene refencia de tabla Tipo_evento y sede 
 CREATE TABLE EVENTO (
-	cod_evento INT PRIMARY KEY,
+	cod_evento INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	nb_evento VARCHAR(100),
 	fecha_inicia DATE,
 	fecha_fin DATE,
@@ -110,7 +110,7 @@ CREATE TABLE EVENTO (
 
 --Contrato, tiene refencia de tabla cliente, subcategoria, evento, tipo stand
 CREATE TABLE CONTRATO (
-	nro_stand INT PRIMARY KEY,
+	nro_stand INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	cod_evento INT,
 	cod_tipo_stand INT,
 	fecha_alquiler DATE,
@@ -142,7 +142,7 @@ CREATE TABLE EVENTO_ESTAND (
 	precio DECIMAL(12,2),
 
 	CONSTRAINT pk_evento_stand
-		PRIMARY KEY (cod_evento, cod_tipo_stand),
+		GENERATED ALWAYS AS IDENTITY PRIMARY KEY (cod_evento, cod_tipo_stand),
 	CONSTRAINT fk_evento
 		FOREIGN KEY (cod_evento)
 		REFERENCES EVENTO(cod_evento),
@@ -153,7 +153,7 @@ CREATE TABLE EVENTO_ESTAND (
 
 --Entrada, tiene referencia de la tabla Leyenda_estrella, evento y visitante
 CREATE TABLE ENTRADA (
-	nro_entrada INT PRIMARY KEY,
+	nro_entrada INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	cod_evento INT,
 	fecha_entrada DATE,
 	hora_entrada TIME,
