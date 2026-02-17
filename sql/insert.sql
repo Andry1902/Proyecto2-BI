@@ -198,7 +198,7 @@ INSERT INTO LEYENDA_ESTRELLA (nb_descripcion) VALUES
   ('Bueno'), --Codigo 4 (4 estrellas)
   ('Excelente'); --Codigo 5 (5 estrellas)
 -- INSERT CIUDAD
-INSERT INTO ciudad (nb_ciudad, cod_pais) VALUES
+INSERT INTO CIUDAD (nb_ciudad, cod_pais) VALUES
 -- Venezuela (10)
 ('Caracas', 1),
 ('Maracaibo', 1),
@@ -259,6 +259,27 @@ INSERT INTO ciudad (nb_ciudad, cod_pais) VALUES
 ('Leon', 5),
 ('Toluca', 5);
 -- SUBCATEGORIA
+INSERT INTO SUBCATEGORIA (nb_sub_categoria, cod_categoria) VALUES
+
+-- Tecnología e Innovación
+('Desarrollo de Software', 1),
+('Inteligencia Artificial y Robótica', 1),
+
+-- Gastronomía y Alimentos
+('Cocina Internacional', 2),
+('Emprendimientos Gastronómicos', 2),
+
+-- Educación y Carreras
+('Universidades y Postgrados', 3),
+('Formación Técnica y Profesional', 3),
+
+-- Artes e Industrias Creativas
+('Diseño Gráfico y Multimedia', 4),
+('Producción Audiovisual', 4)
+
+-- Salud y Bienestar
+('Medicina Preventiva', 5),
+('Fitness y Vida Activa', 5);
 -- SEDE
 -- EVENTO
 -- EVENTO_STAND
