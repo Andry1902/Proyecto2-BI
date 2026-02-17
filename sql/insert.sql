@@ -183,3 +183,13 @@ INSERT INTO VISITANTE (cedula, nb_visitante, sexo, email) VALUES
 ('E-17222333', 'Caterina Valentino', 'F', 'cvalen@gmail.com'),
 ('E-19999000', 'Henrique Lazo', 'M', 'hlazo@gmail.com'),
 ('E-23999000', 'Veruzhka Ramirez', 'F', 'vramirez@gmail.com');
+
+-- INSERT TIPO EVENTO
+-- INSERT LEYENDA_ESTRELLAS
+-- INSERT CIUDAD
+-- SUBCATEGORIA
+-- SEDE
+-- EVENTO
+-- EVENTO_STAND
+-- CONTRATO
+-- ENTRADA
