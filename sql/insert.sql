@@ -198,6 +198,66 @@ INSERT INTO LEYENDA_ESTRELLA (nb_descripcion) VALUES
   ('Bueno'), --Codigo 4 (4 estrellas)
   ('Excelente'); --Codigo 5 (5 estrellas)
 -- INSERT CIUDAD
+INSERT INTO ciudad (nb_ciudad, cod_pais) VALUES
+-- Venezuela (10)
+('Caracas', 1),
+('Maracaibo', 1),
+('Valencia', 1),
+('Barquisimeto', 1),
+('Maracay', 1),
+('Puerto La Cruz', 1),
+('San Cristobal', 1),
+('Ciudad Guayana', 1),
+('Maturin', 1),
+('Merida', 1),
+
+-- Colombia (10)
+('Bogota', 2),
+('Medellin', 2),
+('Cali', 2),
+('Barranquilla', 2),
+('Cartagena', 2),
+('Bucaramanga', 2),
+('Pereira', 2),
+('Manizales', 2),
+('Santa Marta', 2),
+('Cucuta', 2),
+
+-- Argentina (10)
+('Buenos Aires', 3),
+('Cordoba', 3),
+('Rosario', 3),
+('Mendoza', 3),
+('La Plata', 3),
+('Mar del Plata', 3),
+('Salta', 3),
+('San Miguel de Tucuman', 3),
+('Neuquen', 3),
+('Santa Fe', 3),
+
+-- España (10)
+('Madrid', 4),
+('Barcelona', 4),
+('Valencia', 4),
+('Sevilla', 4),
+('Zaragoza', 4),
+('Malaga', 4),
+('Bilbao', 4),
+('Murcia', 4),
+('Palma de Mallorca', 4),
+('Alicante', 4),
+
+-- México (10)
+('Ciudad de Mexico', 5),
+('Guadalajara', 5),
+('Monterrey', 5),
+('Puebla', 5),
+('Tijuana', 5),
+('Merida', 5),
+('Cancun', 5),
+('Queretaro', 5),
+('Leon', 5),
+('Toluca', 5);
 -- SUBCATEGORIA
 -- SEDE
 -- EVENTO
