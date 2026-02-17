@@ -184,8 +184,19 @@ INSERT INTO VISITANTE (cedula, nb_visitante, sexo, email) VALUES
 ('E-19999000', 'Henrique Lazo', 'M', 'hlazo@gmail.com'),
 ('E-23999000', 'Veruzhka Ramirez', 'F', 'vramirez@gmail.com');
 
--- INSERT TIPO EVENTO
+-- INSERT TIPO_EVENTO
+INSERT INTO TIPO_STAND (nb_tipo_stand) VALUES
+('Básico'),
+('Estándar'),
+('Premium'),
+('VIP');
 -- INSERT LEYENDA_ESTRELLAS
+INSERT INTO LEYENDA_ESTRELLA (nb_descripcion) VALUES
+  ('Muy Malo'), --Codigo 1 (1 estrella)
+  ('Malo'), --Codigo 2 (2 estrellas)
+  ('Regular'), --Codigo 3 (3 estrellas)
+  ('Bueno'), --Codigo 4 (4 estrellas)
+  ('Excelente'); --Codigo 5 (5 estrellas)
 -- INSERT CIUDAD
 -- SUBCATEGORIA
 -- SEDE
