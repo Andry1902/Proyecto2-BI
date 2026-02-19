@@ -281,6 +281,129 @@ INSERT INTO SUBCATEGORIA (nb_sub_categoria, cod_categoria) VALUES
 ('Medicina Preventiva', 5),
 ('Fitness y Vida Activa', 5);
 -- SEDE
+--Caracas
+/*Centro de Convenciones La Carlota — Caracas
+Hotel Eurobuilding Caracas — Caracas
+Centro de Convenciones Sambil Maracaibo — Maracaibo
+Forum de Valencia — Valencia
+Centro de Convenciones Metropolitano — Barquisimeto*/
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'Centro de Convenciones Caracas', cod_ciudad
+FROM CIUDAD WHERE nb_ciudad = 'Caracas';
+
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'Hotel Eurobuilding Caracas', cod_ciudad
+FROM CIUDAD WHERE nb_ciudad = 'Caracas';
+
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'Centro de Convenciones Sambil Maracaibo', cod_ciudad
+FROM CIUDAD WHERE nb_ciudad = 'Maracaibo';
+
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'Forum de Valencia', cod_ciudad
+FROM CIUDAD WHERE nb_ciudad = 'Valencia';
+--Colombia
+/*Corferias — Bogota
+Plaza Mayor Medellin — Medellin
+Centro de Eventos Valle del Pacifico — Cali
+Puerta de Oro Centro de Eventos — Barranquilla
+Centro de Convenciones Cartagena de Indias — Cartagena*/
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'Plaza Mayor Medellin', nb_ciudad
+FROM CIUDAD WHERE nb_ciudad = 'Bogota';
+
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'Centro de Eventos Valle del Pacifico', nb_ciudad
+FROM CIUDAD WHERE nb_ciudad = 'Medellin';
+
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'Puerta de Oro Centro de Eventos', nb_ciudad
+FROM CIUDAD WHERE nb_ciudad = 'Cali';
+
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'Puerta de Oro Centro de Eventos', nb_ciudad
+FROM CIUDAD WHERE nb_ciudad = 'Barranquilla';
+
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'Centro de Convenciones Cartagena de Indias', nb_ciudad
+FROM CIUDAD WHERE nb_ciudad = 'Cartagena';
+
+--Argentina
+/*La Rural Predio Ferial — Buenos Aires
+Centro Costa Salguero — Buenos Aires
+Centro de Convenciones Cordoba — Cordoba
+Metropolitano Rosario — Rosario
+Centro de Congresos y Exposiciones Emilio Civit — Mendoza*/
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'La Rural Predio Ferial', nb_ciudad
+FROM CIUDAD WHERE nb_ciudad= 'Buenos Aires';
+
+
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'Centro Costa Salguero', nb_ciudad
+FROM CIUDAD WHERE nb_ciudad= 'Buenos Aires';
+
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'Centro de Convenciones Cordoba', nb_ciudad
+FROM CIUDAD WHERE nb_ciudad= 'Cordoba';
+
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'Metropolitano Rosario', nb_ciudad
+FROM CIUDAD WHERE nb_ciudad= 'Rosario';
+
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'Centro de Congresos y Exposiciones Emilio Civit', nb_ciudad
+FROM CIUDAD WHERE nb_ciudad= 'Mendoza';
+--ESPAÑA
+/*IFEMA Madrid — Madrid
+Palacio de Congresos Madrid — Madrid
+Fira Barcelona Montjuïc — Barcelona
+Fira Barcelona Gran Via — Barcelona
+Feria Valencia — Valencia*/
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'IFEMA', nb_ciudad
+FROM CIUDAD WHERE nb_ciudad = 'Madrid';
+
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'Palacio de Congresos Madrid', nb_ciudad
+FROM CIUDAD WHERE nb_ciudad = 'Madrid';
+
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'Fira Barcelona Montjuïc', nb_ciudad
+FROM CIUDAD WHERE nb_ciudad = 'Barcelona';
+
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'Fira Barcelona Gran Via', nb_ciudad
+FROM CIUDAD WHERE nb_ciudad = 'Barcelona';
+
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'Feria Valencia', nb_ciudad
+FROM CIUDAD WHERE nb_ciudad = 'Valencia';
+--Mexico
+/*Centro Citibanamex — Ciudad de Mexico
+World Trade Center CDMX — Ciudad de Mexico
+Expo Guadalajara — Guadalajara
+Cintermex — Monterrey
+Centro Expositor Puebla — Puebla*/
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'Centro Citibanamex', nb_ciudad
+FROM CIUDAD WHERE nb_ciudad = 'Ciudad de Mexico';
+
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'World Trade Center CDMX', nb_ciudad
+FROM CIUDAD WHERE nb_ciudad = 'Ciudad de Mexico';
+
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'Expo Guadalajara', nb_ciudad
+FROM CIUDAD WHERE nb_ciudad = 'Guadalajara';
+
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'Cintermex', nb_ciudad
+FROM CIUDAD WHERE nb_ciudad = 'Monterrey';
+
+INSERT INTO SEDE (nb_sede, cod_ciudad)
+SELECT 'Centro Expositor Puebla', nb_ciudad
+FROM CIUDAD WHERE nb_ciudad = 'Puebla';
 -- EVENTO
 -- EVENTO_STAND
 -- CONTRATO
