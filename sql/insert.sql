@@ -184,12 +184,6 @@ INSERT INTO VISITANTE (cedula, nb_visitante, sexo, email) VALUES
 ('E-19999000', 'Henrique Lazo', 'M', 'hlazo@gmail.com'),
 ('E-23999000', 'Veruzhka Ramirez', 'F', 'vramirez@gmail.com');
 
--- INSERT TIPO_EVENTO
-INSERT INTO TIPO_STAND (nb_tipo_stand) VALUES
-('Básico'),
-('Estándar'),
-('Premium'),
-('VIP');
 -- INSERT LEYENDA_ESTRELLAS
 INSERT INTO LEYENDA_ESTRELLA (nb_descripcion) VALUES
   ('Muy Malo'), --Codigo 1 (1 estrella)
@@ -302,6 +296,15 @@ FROM CIUDAD WHERE nb_ciudad = 'Maracaibo';
 INSERT INTO SEDE (nb_sede, cod_ciudad)
 SELECT 'Forum de Valencia', cod_ciudad
 FROM CIUDAD WHERE nb_ciudad = 'Valencia';
+
+INSERT INTO sede (nb_sede, cod_ciudad)
+SELECT 
+    CASE 
+        WHEN cod_ciudad % 2 = 0 THEN 'Centro de Exposiciones ' || nb_ciudad
+        ELSE 'Palacio de Eventos ' || nb_ciudad
+    END,
+    cod_ciudad
+FROM ciudad;
 --Colombia
 /*Corferias — Bogota
 Plaza Mayor Medellin — Medellin
@@ -327,6 +330,7 @@ FROM CIUDAD WHERE nb_ciudad = 'Barranquilla';
 INSERT INTO SEDE (nb_sede, cod_ciudad)
 SELECT 'Centro de Convenciones Cartagena de Indias', nb_ciudad
 FROM CIUDAD WHERE nb_ciudad = 'Cartagena';
+
 
 --Argentina
 /*La Rural Predio Ferial — Buenos Aires
@@ -354,6 +358,7 @@ FROM CIUDAD WHERE nb_ciudad= 'Rosario';
 INSERT INTO SEDE (nb_sede, cod_ciudad)
 SELECT 'Centro de Congresos y Exposiciones Emilio Civit', nb_ciudad
 FROM CIUDAD WHERE nb_ciudad= 'Mendoza';
+
 --ESPAÑA
 /*IFEMA Madrid — Madrid
 Palacio de Congresos Madrid — Madrid
