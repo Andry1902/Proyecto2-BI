@@ -1,5 +1,6 @@
 SET search_path TO expoucv_g30030004;
 
+--SET search_path TO expoucv_g30030004, public; RECOMENDADO PARA FACILITAR LAS CONSULTAS
 -- 1. Insertar PAIS (Sin incluir cod_pais)
 INSERT INTO PAIS (nb_pais) VALUES
 ('Venezuela'),
@@ -28,6 +29,15 @@ INSERT INTO TIPO_STAND (nb_tipo_stand) VALUES
 ('Stand Doble Altura'), 
 ('Módulo Informativo'),
 ('Showroom');
+
+INSERT INTO TIPO_EVENTO (nb_tipo_evento) VALUES 
+('Exposición Comercial'),
+('Congreso Académico'),
+('Feria Industrial'),
+('Convención Corporativa'),
+('Seminario de Innovación'),
+('Simposio Especializado'),
+('Festival Gastronómico');
 
 INSERT INTO CLIENTE (nb_cliente, ci_rif, telefono, direccion, email) VALUES
 ('Alimentos Polar', 'J-000030623', '0212-2021111', 'Los Cortijos, Caracas', 'contacto@polar.com'),
@@ -185,7 +195,7 @@ INSERT INTO VISITANTE (cedula, nb_visitante, sexo, email) VALUES
 ('E-23999000', 'Veruzhka Ramirez', 'F', 'vramirez@gmail.com');
 
 -- INSERT LEYENDA_ESTRELLAS
-INSERT INTO LEYENDA_ESTRELLA (nb_descripcion) VALUES
+INSERT INTO LEYENDA_ESTRELLAS (nb_descripcion) VALUES
   ('Muy Malo'), --Codigo 1 (1 estrella)
   ('Malo'), --Codigo 2 (2 estrellas)
   ('Regular'), --Codigo 3 (3 estrellas)
@@ -269,147 +279,626 @@ INSERT INTO SUBCATEGORIA (nb_sub_categoria, cod_categoria) VALUES
 
 -- Artes e Industrias Creativas
 ('Diseño Gráfico y Multimedia', 4),
-('Producción Audiovisual', 4)
+('Producción Audiovisual', 4),
 
 -- Salud y Bienestar
 ('Medicina Preventiva', 5),
 ('Fitness y Vida Activa', 5);
 -- SEDE
---Caracas
-/*Centro de Convenciones La Carlota — Caracas
-Hotel Eurobuilding Caracas — Caracas
-Centro de Convenciones Sambil Maracaibo — Maracaibo
-Forum de Valencia — Valencia
-Centro de Convenciones Metropolitano — Barquisimeto*/
+-- =============================================
+-- SECCIÓN DE SEDES CORREGIDA
+-- =============================================
+
+-- Venezuela
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'Centro de Convenciones Caracas', cod_ciudad
-FROM CIUDAD WHERE nb_ciudad = 'Caracas';
+SELECT 'Centro de Convenciones Caracas', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Caracas';
 
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'Hotel Eurobuilding Caracas', cod_ciudad
-FROM CIUDAD WHERE nb_ciudad = 'Caracas';
+SELECT 'Hotel Eurobuilding Caracas', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Caracas';
 
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'Centro de Convenciones Sambil Maracaibo', cod_ciudad
-FROM CIUDAD WHERE nb_ciudad = 'Maracaibo';
+SELECT 'Centro de Convenciones Sambil Maracaibo', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Maracaibo';
 
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'Forum de Valencia', cod_ciudad
-FROM CIUDAD WHERE nb_ciudad = 'Valencia';
+SELECT 'Forum de Valencia', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Valencia';
 
-INSERT INTO sede (nb_sede, cod_ciudad)
-SELECT 
-    CASE 
-        WHEN cod_ciudad % 2 = 0 THEN 'Centro de Exposiciones ' || nb_ciudad
-        ELSE 'Palacio de Eventos ' || nb_ciudad
-    END,
-    cod_ciudad
-FROM ciudad;
---Colombia
-/*Corferias — Bogota
-Plaza Mayor Medellin — Medellin
-Centro de Eventos Valle del Pacifico — Cali
-Puerta de Oro Centro de Eventos — Barranquilla
-Centro de Convenciones Cartagena de Indias — Cartagena*/
+-- Colombia
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'Plaza Mayor Medellin', nb_ciudad
-FROM CIUDAD WHERE nb_ciudad = 'Bogota';
+SELECT 'Corferias', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Bogota';
 
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'Centro de Eventos Valle del Pacifico', nb_ciudad
-FROM CIUDAD WHERE nb_ciudad = 'Medellin';
+SELECT 'Plaza Mayor Medellin', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Medellin';
 
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'Puerta de Oro Centro de Eventos', nb_ciudad
-FROM CIUDAD WHERE nb_ciudad = 'Cali';
+SELECT 'Centro de Eventos Valle del Pacifico', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Cali';
 
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'Puerta de Oro Centro de Eventos', nb_ciudad
-FROM CIUDAD WHERE nb_ciudad = 'Barranquilla';
+SELECT 'Puerta de Oro Centro de Eventos', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Barranquilla';
 
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'Centro de Convenciones Cartagena de Indias', nb_ciudad
-FROM CIUDAD WHERE nb_ciudad = 'Cartagena';
+SELECT 'Centro de Convenciones Cartagena de Indias', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Cartagena';
 
-
---Argentina
-/*La Rural Predio Ferial — Buenos Aires
-Centro Costa Salguero — Buenos Aires
-Centro de Convenciones Cordoba — Cordoba
-Metropolitano Rosario — Rosario
-Centro de Congresos y Exposiciones Emilio Civit — Mendoza*/
+-- Argentina
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'La Rural Predio Ferial', nb_ciudad
-FROM CIUDAD WHERE nb_ciudad= 'Buenos Aires';
-
+SELECT 'La Rural Predio Ferial', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Buenos Aires';
 
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'Centro Costa Salguero', nb_ciudad
-FROM CIUDAD WHERE nb_ciudad= 'Buenos Aires';
+SELECT 'Centro Costa Salguero', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Buenos Aires';
 
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'Centro de Convenciones Cordoba', nb_ciudad
-FROM CIUDAD WHERE nb_ciudad= 'Cordoba';
+SELECT 'Centro de Convenciones Cordoba', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Cordoba';
 
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'Metropolitano Rosario', nb_ciudad
-FROM CIUDAD WHERE nb_ciudad= 'Rosario';
+SELECT 'Metropolitano Rosario', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Rosario';
 
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'Centro de Congresos y Exposiciones Emilio Civit', nb_ciudad
-FROM CIUDAD WHERE nb_ciudad= 'Mendoza';
+SELECT 'Centro de Congresos y Exposiciones Emilio Civit', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Mendoza';
 
---ESPAÑA
-/*IFEMA Madrid — Madrid
-Palacio de Congresos Madrid — Madrid
-Fira Barcelona Montjuïc — Barcelona
-Fira Barcelona Gran Via — Barcelona
-Feria Valencia — Valencia*/
+-- España
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'IFEMA', nb_ciudad
-FROM CIUDAD WHERE nb_ciudad = 'Madrid';
+SELECT 'IFEMA Madrid', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Madrid';
 
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'Palacio de Congresos Madrid', nb_ciudad
-FROM CIUDAD WHERE nb_ciudad = 'Madrid';
+SELECT 'Palacio de Congresos Madrid', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Madrid';
 
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'Fira Barcelona Montjuïc', nb_ciudad
-FROM CIUDAD WHERE nb_ciudad = 'Barcelona';
+SELECT 'Fira Barcelona Montjuïc', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Barcelona';
 
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'Fira Barcelona Gran Via', nb_ciudad
-FROM CIUDAD WHERE nb_ciudad = 'Barcelona';
+SELECT 'Fira Barcelona Gran Via', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Barcelona';
 
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'Feria Valencia', nb_ciudad
-FROM CIUDAD WHERE nb_ciudad = 'Valencia';
---Mexico
-/*Centro Citibanamex — Ciudad de Mexico
-World Trade Center CDMX — Ciudad de Mexico
-Expo Guadalajara — Guadalajara
-Cintermex — Monterrey
-Centro Expositor Puebla — Puebla*/
+SELECT 'Feria Valencia', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Valencia';
+
+-- México
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'Centro Citibanamex', nb_ciudad
-FROM CIUDAD WHERE nb_ciudad = 'Ciudad de Mexico';
+SELECT 'Centro Citibanamex', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Ciudad de Mexico';
 
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'World Trade Center CDMX', nb_ciudad
-FROM CIUDAD WHERE nb_ciudad = 'Ciudad de Mexico';
+SELECT 'World Trade Center CDMX', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Ciudad de Mexico';
 
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'Expo Guadalajara', nb_ciudad
-FROM CIUDAD WHERE nb_ciudad = 'Guadalajara';
+SELECT 'Expo Guadalajara', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Guadalajara';
 
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'Cintermex', nb_ciudad
-FROM CIUDAD WHERE nb_ciudad = 'Monterrey';
+SELECT 'Cintermex', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Monterrey';
 
 INSERT INTO SEDE (nb_sede, cod_ciudad)
-SELECT 'Centro Expositor Puebla', nb_ciudad
-FROM CIUDAD WHERE nb_ciudad = 'Puebla';
+SELECT 'Centro Expositor Puebla', cod_ciudad FROM CIUDAD WHERE nb_ciudad = 'Puebla';
 -- EVENTO
--- EVENTO_STAND
+INSERT INTO EVENTO (nb_evento, fecha_inicia, fecha_fin, descripcion, cod_sede, email, cod_tipo_evento) VALUES
+('Expo Tecno 2016', '2016-03-15', '2016-03-20', 'Innovación tecnológica', 1, 'info@tecno.ve', 1),
+('Feria Gastronómica CCS', '2016-04-10', '2016-04-15', 'Sabores del mundo', 2, 'gastro@euro.ve', 7),
+('Congreso Médico Bogotá', '2016-05-05', '2016-05-08', 'Avances en salud', 5, 'salud@corferias.co', 2),
+('Expo Mueble Medellín', '2016-06-12', '2016-06-18', 'Diseño de interiores', 6, 'mueble@plazamayor.co', 1),
+('Feria del Libro BA', '2016-07-20', '2016-08-05', 'Cultura literaria', 10, 'libros@larural.ar', 1),
+('Auto Show CDMX', '2016-08-15', '2016-08-22', 'Exhibición automotriz', 21, 'autos@citibanamex.mx', 1),
+('Semana de la Moda Madrid', '2016-09-10', '2016-09-15', 'Tendencias europeas', 16, 'moda@ifema.es', 1),
+('Expo Construcción Cali', '2016-10-05', '2016-10-10', 'Materiales y equipos', 7, 'constru@valle.co', 3),
+('Congreso Minero Monterrey', '2016-11-02', '2016-11-05', 'Industria pesada', 24, 'mineria@cintermex.mx', 2),
+('Feria Navideña Valencia', '2016-12-01', '2016-12-20', 'Compras de temporada', 4, 'navidad@forum.ve', 1),
+('Expo Agro Rosario', '2016-03-22', '2016-03-28', 'Tecnología de campo', 13, 'agro@metro.ar', 3),
+('Boda Expo Barcelona', '2016-05-15', '2016-05-17', 'Planificación de eventos', 18, 'bodas@fira.es', 1),
+('Salón del Ocio Bogotá', '2016-10-25', '2016-10-30', 'Videojuegos y cultura pop', 5, 'sofa@corferias.co', 1),
+('Expo Artesanía Maracaibo', '2016-11-15', '2016-11-20', 'Talento regional', 3, 'arte@sambil.ve', 1),
+('Congreso Educativo Puebla', '2016-06-05', '2016-06-08', 'Nuevas pedagogías', 25, 'edu@puebla.mx', 2),
+('Global Tech 2017', '2017-02-10', '2017-02-15', 'Inteligencia Artificial', 16, 'tech@ifema.es', 1),
+('Feria Textil Medellín', '2017-01-25', '2017-01-28', 'Colombiatex', 6, 'textil@plazamayor.co', 3),
+('Expo Vino Mendoza', '2017-03-05', '2017-03-10', 'Cata y negocios', 14, 'vino@mendoza.ar', 7),
+('Congreso de Energía CDMX', '2017-04-12', '2017-04-15', 'Sustentabilidad', 22, 'energia@wtc.mx', 2),
+('Feria del Hogar Caracas', '2017-05-20', '2017-06-05', 'Muebles y electrodomésticos', 1, 'hogar@convenciones.ve', 1),
+('Expo Turismo Cartagena', '2017-06-15', '2017-06-18', 'Destinos mundiales', 9, 'turismo@cartagena.co', 1),
+('Salón Náutico Barcelona', '2017-10-10', '2017-10-15', 'Embarcaciones de lujo', 19, 'nautico@fira.es', 1),
+('Expo Franquicias Guadalajara', '2017-09-05', '2017-09-08', 'Modelos de negocio', 23, 'negocios@guadalajara.mx', 1),
+('Congreso Farmacéutico Córdoba', '2017-11-20', '2017-11-23', 'Industria médica', 12, 'farma@cordoba.ar', 2),
+('Feria del Café Barranquilla', '2017-08-12', '2017-08-15', 'Productores locales', 8, 'cafe@puertadeoro.co', 7),
+('Cyber Security Expo Madrid', '2017-04-22', '2017-04-25', 'Seguridad digital', 17, 'cyber@madrid.es', 6),
+('Expo Logística Buenos Aires', '2017-05-10', '2017-05-13', 'Transporte y carga', 11, 'logistica@salguero.ar', 1),
+('Feria Gastronómica Valencia', '2017-07-01', '2017-07-05', 'Comida mediterránea', 20, 'gastro@feria.es', 7),
+('Congreso de Software Cali', '2017-03-28', '2017-03-31', 'Programación avanzada', 7, 'soft@valle.co', 2),
+('Expo Belleza Maracaibo', '2017-09-20', '2017-09-24', 'Cosmética y moda', 3, 'belleza@sambil.ve', 1),
+('Expo Inmobiliaria 2018', '2018-03-10', '2018-03-15', 'Proyectos residenciales', 21, 'ventas@citibanamex.mx', 1),
+('Congreso de Marketing Digital', '2018-05-20', '2018-05-22', 'Tendencias RRSS', 2, 'mkt@euro.ve', 2),
+('Feria del Libro Madrid', '2018-06-01', '2018-06-15', 'Cultura literaria', 16, 'libros@ifema.es', 3),
+('Expo Carga Bogotá', '2018-08-10', '2018-08-13', 'Logística global', 5, 'log@corferias.co', 1),
+('Convención de Ventas Regional', '2018-11-05', '2018-11-07', 'Estrategia anual', 4, 'ventas@forum.ve', 4),
+('Expo Empleo Buenos Aires', '2019-02-15', '2019-02-17', 'Oportunidades laborales', 10, 'empleo@larural.ar', 1),
+('Congreso de Medicina 2019', '2019-04-10', '2019-04-13', 'Nuevas cirugías', 17, 'med@madrid.es', 2),
+('Feria de Tecnología Cali', '2019-06-20', '2019-06-25', 'Gadgets y software', 7, 'tech@valle.co', 3),
+('Simposio de Ciberseguridad', '2019-07-15', '2019-07-17', 'Protección de datos', 22, 'cyber@wtc.mx', 6),
+('Expo Boda Medellín', '2019-09-05', '2019-09-07', 'Todo para tu evento', 6, 'bodas@plazamayor.co', 1),
+('Festival Gourmet Caracas', '2019-10-12', '2019-10-15', 'Cata de vinos', 1, 'gourmet@convenciones.ve', 7),
+('Feria de Minería Monterrey', '2019-11-20', '2019-11-23', 'Recursos naturales', 24, 'mine@cintermex.mx', 3),
+('Seminario de IA 2019', '2019-05-25', '2019-05-26', 'Futuro del trabajo', 19, 'ia@fira.es', 5),
+('Expo Bebé Barranquilla', '2019-03-01', '2019-03-03', 'Maternidad y niños', 8, 'bebe@puertadeoro.co', 1),
+('Congreso de Derecho Rosario', '2019-08-14', '2019-08-16', 'Leyes digitales', 13, 'ley@metro.ar', 2),
+('Virtual Tech Expo', '2020-05-10', '2020-05-12', 'Evento híbrido tech', 16, 'vtech@ifema.es', 1),
+('Reconecta Expo 2021', '2021-09-15', '2021-09-18', 'Reapertura comercial', 5, 're@corferias.co', 1),
+('Congreso Salud Post-Pandemia', '2021-11-20', '2021-11-22', 'Nuevos protocolos', 2, 'salud@euro.ve', 2),
+('Expo Agro Industrial 2022', '2022-03-05', '2022-03-10', 'Maquinaria pesada', 23, 'agro@guadalajara.mx', 3),
+('Cumbre Líderes Latam', '2022-05-12', '2022-05-14', 'Networking corporativo', 10, 'cumbre@larural.ar', 4),
+('Feria de Energía Solar', '2022-07-20', '2022-07-22', 'Renovables 2022', 20, 'solar@feria.es', 3),
+('Smart Cities Expo 2022', '2022-10-18', '2022-10-20', 'Ciudades del futuro', 18, 'smart@fira.es', 5),
+('Congreso de Turismo 2023', '2023-01-25', '2023-01-27', 'Destinos emergentes', 9, 'tur@cartagena.co', 2),
+('Expo Construcción 2023', '2023-04-12', '2023-04-16', 'Materiales sostenibles', 25, 'cons@puebla.mx', 1),
+('Salón del Automóvil 2023', '2023-06-15', '2023-06-22', 'Lanzamientos eléctricos', 21, 'auto@citibanamex.mx', 1),
+('Feria Textil Colombiamoda', '2023-07-25', '2023-07-27', 'Pasarelas y negocios', 6, 'moda@plazamayor.co', 3),
+('Convención Bancaria 2023', '2023-09-10', '2023-09-12', 'Fintech y banca', 2, 'banca@euro.ve', 4),
+('Expo Logística Maracaibo', '2023-11-05', '2023-11-08', 'Puertos y transporte', 3, 'log@sambil.ve', 1),
+('Simposio de Oncología', '2023-05-18', '2023-05-20', 'Investigación médica', 12, 'med@cordoba.ar', 6),
+('Festival del Chocolate', '2023-12-01', '2023-12-03', 'Tradición venezolana', 1, 'choc@convenciones.ve', 7),
+('Expo IA & Robótica 2024', '2024-02-15', '2024-02-18', 'Automatización 4.0', 16, 'robot@ifema.es', 5),
+('Congreso Minero Chile-Arg', '2024-04-22', '2024-04-25', 'Extracción sustentable', 14, 'mine@mendoza.ar', 2),
+('Feria de Franquicias 2024', '2024-06-10', '2024-06-12', 'Modelos de inversión', 22, 'franq@wtc.mx', 3),
+('Expo Salud Bucal 2024', '2024-08-05', '2024-08-07', 'Odontología moderna', 7, 'salud@valle.co', 1),
+('Cumbre de Criptoactivos', '2024-10-15', '2024-10-17', 'Blockchain y futuro', 2, 'crypto@euro.ve', 4),
+('Expo Educación 2025', '2025-01-20', '2025-01-23', 'Postgrados y becas', 10, 'edu@larural.ar', 1),
+('Salón del Mueble 2025', '2025-03-12', '2025-03-16', 'Hogar inteligente', 24, 'mueble@cintermex.mx', 1),
+('Feria de Aeronáutica', '2025-05-08', '2025-05-12', 'Aviación civil', 8, 'aero@puertadeoro.co', 3),
+('Congreso de Energías Limpias', '2025-07-15', '2025-07-18', 'H2 Verde', 17, 'green@madrid.es', 2),
+('Expo Retail 2025', '2025-09-10', '2025-09-12', 'Comercio electrónico', 21, 'retail@citibanamex.mx', 1);
+
+INSERT INTO EVENTO_ESTAND (cod_evento, cod_tipo_stand, cantidad_estimada, mts2, precio) VALUES
+-- Evento 1 (Expo Tecno 2016)
+(1, 2, 10, 9.00, 1500.00),
+(1, 3, 5, 25.00, 5000.00),
+-- Evento 2 (Feria Gastronómica CCS)
+(2, 1, 20, 4.00, 800.00),
+(2, 4, 8, 9.00, 1200.00),
+-- Evento 3 (Congreso Médico Bogotá)
+(3, 2, 15, 9.00, 1800.00),
+(3, 9, 10, 2.00, 500.00),
+-- Evento 4 (Expo Mueble Medellín)
+(4, 8, 5, 30.00, 6500.00),
+(4, 3, 3, 50.00, 9000.00),
+-- Evento 5 (Feria del Libro BA)
+(5, 1, 50, 4.00, 600.00),
+(5, 7, 20, 2.00, 300.00),
+-- Evento 6 (Auto Show CDMX)
+(6, 10, 10, 100.00, 15000.00),
+(6, 6, 5, 200.00, 25000.00),
+-- Evento 7 (Semana de la Moda Madrid)
+(7, 2, 12, 12.00, 2500.00),
+(7, 8, 4, 35.00, 7000.00),
+-- Evento 8 (Expo Construcción Cali)
+(8, 5, 15, 40.00, 4500.00),
+(8, 3, 5, 60.00, 8500.00),
+-- Evento 9 (Congreso Minero Monterrey)
+(9, 6, 8, 150.00, 18000.00),
+(9, 2, 10, 9.00, 2000.00),
+-- Evento 10 (Feria Navideña Valencia)
+(10, 1, 30, 4.00, 500.00),
+(10, 4, 10, 9.00, 950.00),
+-- Evento 11 (Expo Agro Rosario)
+(11, 5, 20, 100.00, 3500.00),
+(11, 10, 5, 80.00, 12000.00),
+-- Evento 12 (Boda Expo Barcelona)
+(12, 2, 15, 9.00, 2200.00),
+(12, 4, 10, 12.00, 2800.00),
+-- Evento 13 (Salón del Ocio Bogotá)
+(13, 1, 40, 4.00, 700.00),
+(13, 3, 6, 20.00, 4000.00),
+-- Evento 14 (Expo Artesanía Maracaibo)
+(14, 7, 25, 2.00, 250.00),
+(14, 1, 15, 4.00, 450.00),
+-- Evento 15 (Congreso Educativo Puebla)
+(15, 9, 12, 2.00, 400.00),
+(15, 2, 8, 9.00, 1300.00),
+-- Evento 16 (Global Tech 2017)
+(16, 3, 10, 30.00, 7500.00),
+(16, 10, 4, 60.00, 14000.00),
+-- Evento 17 (Feria Textil Medellín)
+(17, 2, 20, 9.00, 1900.00),
+(17, 8, 5, 25.00, 5500.00),
+-- Evento 18 (Expo Vino Mendoza)
+(18, 4, 12, 9.00, 1600.00),
+(18, 7, 15, 3.00, 600.00),
+-- Evento 19 (Congreso Energía CDMX)
+(19, 6, 6, 100.00, 12000.00),
+(19, 2, 10, 9.00, 2100.00),
+-- Evento 20 (Feria del Hogar Caracas)
+(20, 1, 35, 6.00, 850.00),
+(20, 3, 8, 25.00, 3800.00),
+-- Eventos del 21 al 30 (Mezcla de stands básicos y corporativos)
+(21, 1, 40, 4.00, 450.00),
+(21, 2, 10, 9.00, 1100.00),
+(22, 6, 4, 120.00, 15000.00),
+(22, 4, 12, 12.00, 1800.00),
+(23, 5, 20, 50.00, 3200.00),
+(23, 3, 5, 25.00, 4800.00),
+(24, 2, 15, 9.00, 1400.00),
+(25, 10, 2, 80.00, 9500.00),
+(25, 9, 20, 2.00, 350.00),
+(26, 1, 60, 4.00, 400.00),
+(27, 3, 8, 30.00, 5500.00),
+(27, 2, 12, 9.00, 1650.00),
+(28, 7, 30, 2.00, 280.00),
+(29, 8, 4, 40.00, 8000.00),
+(30, 4, 10, 9.00, 1150.00),
+-- Eventos del 31 al 40 (Especializados)
+(31, 2, 25, 9.00, 2100.00),
+(32, 1, 45, 4.00, 750.00),
+(33, 10, 6, 120.00, 18000.00),
+(34, 3, 12, 20.00, 4200.00),
+(34, 4, 15, 9.00, 1400.00),
+(35, 6, 3, 250.00, 35000.00),
+(36, 1, 25, 4.00, 550.00),
+(37, 2, 18, 9.00, 1900.00),
+(38, 7, 20, 3.00, 450.00),
+(38, 9, 15, 2.00, 300.00),
+(39, 5, 10, 45.00, 3800.00),
+(40, 3, 5, 30.00, 6200.00),
+-- Eventos del 41 al 50 (Variedad de formatos)
+(41, 2, 14, 9.00, 1550.00),
+(42, 6, 2, 180.00, 22000.00),
+(43, 1, 35, 4.00, 600.00),
+(44, 4, 12, 12.00, 1750.00),
+(45, 10, 5, 90.00, 11000.00),
+(46, 3, 7, 25.00, 4900.00),
+(47, 8, 6, 50.00, 9200.00),
+(48, 1, 50, 4.00, 420.00),
+(49, 2, 20, 9.00, 1350.00),
+(50, 7, 25, 2.00, 310.00),
+-- Eventos del 51 al 60 (Cierre de la lista)
+(51, 9, 15, 2.00, 290.00),
+(52, 4, 10, 9.00, 1200.00),
+(53, 2, 30, 9.00, 2300.00),
+(54, 5, 12, 30.00, 2800.00),
+(55, 3, 6, 40.00, 7800.00),
+(56, 1, 40, 4.00, 500.00),
+(57, 10, 3, 150.00, 20000.00),
+(58, 8, 4, 45.00, 8500.00),
+(59, 7, 18, 2.00, 340.00),
+(60, 2, 15, 12.00, 2600.00),
+(60, 4, 8, 9.00, 1450.00),
+(59, 1, 20, 4.00, 480.00),
+(58, 2, 10, 9.00, 1500.00);
+
 -- CONTRATO
+
+INSERT INTO CONTRATO (cod_evento, cod_tipo_stand, fecha_alquiler, cod_cliente, mts2, Monto, cod_sub_categoria) VALUES
+-- Contratos para Eventos de 2016
+(1, 2, '2016-01-15', 1, 9.00, 1500.00, 1),
+(1, 3, '2016-01-20', 2, 25.00, 5000.00, 2),
+(2, 1, '2016-02-10', 3, 4.00, 800.00, 3),
+(2, 4, '2016-02-15', 4, 9.00, 1200.00, 4),
+(3, 2, '2016-03-01', 5, 9.00, 1800.00, 9),
+(4, 8, '2016-04-12', 1, 30.00, 6500.00, 7),
+(5, 1, '2016-05-20', 2, 4.00, 600.00, 5),
+(6, 10, '2016-06-15', 3, 100.00, 15000.00, 1),
+(7, 2, '2016-07-10', 4, 12.00, 2500.00, 7),
+(8, 5, '2016-08-05', 5, 40.00, 4500.00, 1),
+
+-- Contratos para Eventos de 2017
+(16, 3, '2016-12-10', 1, 30.00, 7500.00, 2),
+(16, 10, '2016-12-15', 2, 60.00, 14000.00, 1),
+(17, 2, '2017-01-05', 3, 9.00, 1900.00, 7),
+(18, 4, '2017-02-12', 4, 9.00, 1600.00, 3),
+(19, 6, '2017-03-01', 5, 100.00, 12000.00, 1),
+(20, 1, '2017-04-20', 1, 6.00, 850.00, 4),
+(11, 5, '2016-02-15', 2, 100.00, 3500.00, 1),
+(12, 2, '2016-04-10', 3, 9.00, 2200.00, 8),
+(13, 3, '2016-09-01', 4, 20.00, 4000.00, 6),
+(14, 7, '2016-10-15', 5, 2.00, 250.00, 8),
+
+-- Contratos para Eventos de 2018 - 2019
+(21, 1, '2018-01-10', 1, 4.00, 450.00, 1),
+(21, 2, '2018-01-12', 2, 9.00, 1100.00, 2),
+(22, 6, '2018-04-05', 3, 120.00, 15000.00, 1),
+(23, 5, '2018-06-20', 4, 50.00, 3200.00, 1),
+(24, 2, '2018-10-15', 5, 9.00, 1400.00, 9),
+(25, 10, '2018-12-01', 1, 80.00, 9500.00, 1),
+(26, 1, '2019-01-15', 2, 4.00, 400.00, 5),
+(27, 3, '2019-03-20', 3, 30.00, 5500.00, 1),
+(28, 7, '2019-06-10', 4, 2.00, 280.00, 3),
+(29, 8, '2019-08-05', 5, 40.00, 8000.00, 7),
+
+-- Contratos para Eventos de 2020 - 2023
+(31, 2, '2020-03-01', 1, 9.00, 2100.00, 2),
+(33, 10, '2020-09-15', 2, 120.00, 18000.00, 1),
+(34, 3, '2021-01-10', 3, 20.00, 4200.00, 1),
+(35, 6, '2021-04-20', 4, 250.00, 35000.00, 1),
+(37, 2, '2022-02-15', 5, 9.00, 1900.00, 7),
+(40, 3, '2022-11-01', 1, 30.00, 6200.00, 1),
+(42, 6, '2023-02-10', 2, 180.00, 22000.00, 1),
+(45, 10, '2023-08-01', 3, 90.00, 11000.00, 1),
+(47, 8, '2023-09-15', 4, 50.00, 9200.00, 1),
+(50, 7, '2023-11-10', 5, 2.00, 310.00, 3),
+
+-- Contratos para Eventos de 2024 - 2025
+(51, 9, '2024-01-05', 1, 2.00, 290.00, 1),
+(53, 2, '2024-03-20', 2, 9.00, 2300.00, 2),
+(55, 3, '2024-08-15', 3, 40.00, 7800.00, 1),
+(57, 10, '2024-12-01', 4, 150.00, 20000.00, 1),
+(58, 8, '2025-02-10', 5, 45.00, 8500.00, 1),
+(60, 2, '2025-07-20', 1, 12.00, 2600.00, 7),
+(59, 1, '2025-08-01', 2, 4.00, 480.00, 5),
+(58, 2, '2025-01-15', 3, 9.00, 1500.00, 1),
+(38, 9, '2021-12-10', 4, 2.00, 300.00, 10),
+(10, 4, '2016-11-01', 5, 9.00, 950.00, 3),
+-- Contratos adicionales para eventos 2017-2018
+(15, 2, '2016-05-01', 1, 9.00, 1300.00, 5),
+(15, 9, '2016-05-05', 2, 2.00, 400.00, 6),
+(30, 4, '2018-10-01', 3, 9.00, 1150.00, 4),
+(27, 2, '2019-02-15', 4, 9.00, 1650.00, 1),
+(14, 1, '2016-10-20', 5, 4.00, 450.00, 8),
+-- Contratos para eventos 2019-2021
+(31, 2, '2020-02-10', 1, 9.00, 2100.00, 2),
+(32, 1, '2020-04-01', 2, 4.00, 750.00, 3),
+(34, 4, '2020-12-15', 3, 9.00, 1400.00, 1),
+(36, 1, '2021-08-01', 4, 4.00, 550.00, 9),
+(38, 7, '2021-11-20', 5, 3.00, 450.00, 10),
+-- Bloque para eventos del 40 al 50
+(41, 2, '2023-03-01', 1, 9.00, 1550.00, 2),
+(43, 1, '2023-05-15', 2, 4.00, 600.00, 4),
+(44, 4, '2023-06-20', 3, 12.00, 1750.00, 3),
+(46, 3, '2023-09-01', 4, 25.00, 4900.00, 1),
+(48, 1, '2023-11-05', 5, 4.00, 420.00, 6),
+(49, 2, '2023-12-10', 1, 9.00, 1350.00, 5),
+(50, 7, '2023-12-20', 2, 2.00, 310.00, 3),
+-- Bloque para eventos 2024-2025 (Futuros)
+(52, 4, '2024-03-01', 3, 9.00, 1200.00, 1),
+(54, 5, '2024-06-15', 4, 30.00, 2800.00, 1),
+(56, 1, '2024-11-20', 5, 4.00, 500.00, 9),
+(59, 7, '2025-07-10', 1, 2.00, 340.00, 5),
+(60, 4, '2025-08-05', 2, 9.00, 1450.00, 7),
+-- Registros para diversificar stands en mismos eventos
+(1, 1, '2016-01-25', 3, 4.00, 700.00, 1),
+(6, 1, '2016-07-01', 4, 4.00, 800.00, 2),
+(16, 2, '2016-12-20', 5, 9.00, 1800.00, 1),
+(21, 3, '2018-02-01', 1, 20.00, 4000.00, 2),
+(25, 2, '2018-12-10', 2, 9.00, 1600.00, 1),
+(35, 3, '2021-04-25', 3, 25.00, 5000.00, 2),
+(45, 3, '2023-08-10', 4, 20.00, 4500.00, 1),
+(55, 2, '2024-08-20', 5, 9.00, 2000.00, 1),
+-- Más contratos variados
+(10, 1, '2016-11-05', 1, 4.00, 400.00, 3),
+(12, 4, '2016-04-15', 2, 12.00, 2800.00, 8),
+(18, 7, '2017-02-20', 3, 3.00, 600.00, 4),
+(23, 3, '2018-06-25', 4, 25.00, 4800.00, 1),
+(34, 1, '2021-01-15', 5, 4.00, 650.00, 2),
+(47, 1, '2023-09-20', 1, 4.00, 500.00, 1),
+(58, 2, '2025-02-15', 2, 9.00, 1500.00, 1),
+(59, 1, '2025-08-05', 3, 4.00, 480.00, 5),
+(20, 3, '2017-04-25', 4, 25.00, 3800.00, 4),
+(19, 2, '2017-03-05', 5, 9.00, 2100.00, 1),
+(17, 8, '2017-01-10', 1, 25.00, 5500.00, 7),
+(9, 2, '2016-10-15', 2, 9.00, 2000.00, 1),
+(7, 8, '2016-07-15', 3, 35.00, 7000.00, 7),
+(4, 3, '2016-04-15', 4, 50.00, 9000.00, 7),
+(11, 10, '2016-02-20', 5, 80.00, 12000.00, 1),
+(13, 1, '2016-09-10', 1, 4.00, 700.00, 6),
+(22, 4, '2018-04-10', 2, 12.00, 1800.00, 1),
+(27, 3, '2019-03-25', 3, 30.00, 5500.00, 1),
+(38, 1, '2021-11-25', 4, 4.00, 500.00, 10),
+(60, 2, '2025-08-10', 5, 12.00, 2600.00, 7);
+
+
 -- ENTRADA
+
+INSERT INTO ENTRADA (cod_evento, fecha_entrada, hora_entrada, cod_visitante, recomienda_amigo, calificacion, cod_leyenda_estrellas) VALUES
+--NOTA: CALIFICACION Y COD_ESTRELLAS DEBERIAN SER IGUALES?? 
+(1, '2016-03-15', '09:30:00', 1, 1, 5, 1),
+(1, '2016-03-15', '10:15:00', 2, 1, 4, 2),
+(1, '2016-03-16', '11:00:00', 3, 0, 3, 3),
+(2, '2016-04-10', '14:20:00', 4, 1, 5, 4),
+(2, '2016-04-10', '15:45:00', 5, 1, 5, 5),
+(5, '2016-07-20', '09:00:00', 6, 1, 4, 4),
+(5, '2016-07-21', '10:30:00', 7, 1, 5, 2),
+(5, '2016-07-22', '11:15:00', 8, 0, 2, 4),
+(10, '2016-12-05', '16:00:00', 9, 1, 4, 4),
+(10, '2016-12-06', '17:30:00', 10, 1, 3, 1),
+(16, '2017-02-10', '08:45:00', 11, 1, 5, 2),
+(16, '2017-02-11', '09:20:00', 33, 1, 4, 3),
+(21, '2018-03-11', '10:00:00', 22, 1, 5, 4),
+(21, '2018-03-12', '11:30:00', 44, 0, 3, 5),
+(30, '2018-12-02', '13:35:45', 57, 1, 5, 1),
+(30, '2018-12-03', '14:45:00', 66, 1, 5, 2),
+(35, '2021-04-21', '09:15:00', 74, 0, 1, 3),
+(35, '2021-04-22', '10:20:00', 88, 1, 3, 4),
+(40, '2022-11-05', '11:00:00', 91, 1, 5, 5),
+(40, '2022-11-06', '12:30:00', 10, 1, 4, 4),
+(1, '2016-03-17', '14:00:00', 44, 1, 4, 3),
+(2, '2016-04-11', '16:00:00', 67, 1, 5, 4),
+(3, '2016-05-06', '09:45:00', 26, 0, 3, 2),
+(7, '2016-09-11', '12:00:00', 37, 1, 4, 4),
+(8, '2016-10-06', '13:45:00', 51, 0, 2, 5),
+(9, '2016-11-03', '14:30:00', 73, 1, 5, 4),
+(11, '2016-03-23', '15:15:00', 49, 1, 4, 3),
+(12, '2016-05-16', '09:30:00', 100, 1, 5, 4),
+(13, '2016-10-26', '10:15:00', 24, 0, 3, 5),
+(14, '2016-11-16', '11:00:00', 44, 1, 4, 4),
+(15, '2016-06-06', '12:45:00', 67, 1, 5, 3),
+(17, '2017-01-26', '14:30:00', 89, 1, 4, 2),
+(18, '2017-03-06', '15:15:00', 19, 0, 3, 5),
+(19, '2017-04-13', '16:00:00', 34, 1, 5, 4),
+(20, '2017-05-21', '09:00:00', 54, 1, 4, 3),
+(22, '2018-04-06', '10:30:00', 73, 0, 2, 5),
+(23, '2018-06-21', '11:15:00', 95, 1, 5, 4),
+(24, '2018-10-16', '12:00:00', 10, 1, 4, 3),
+(25, '2018-12-02', '13:45:00', 24, 1, 5, 5),
+(26, '2019-01-16', '14:30:00', 44, 0, 3, 2),
+(27, '2019-03-21', '15:15:00', 66, 1, 4, 4),
+(28, '2019-06-11', '16:00:00', 81, 1, 5, 5),
+(29, '2019-08-06', '09:30:00', 14, 1, 4, 3),
+(33, '2020-09-16', '10:15:00', 33, 0, 2, 5),
+(42, '2023-02-11', '11:00:00', 57, 1, 5, 4),
+(45, '2023-08-02', '12:45:00', 78, 1, 4, 3),
+(50, '2023-11-11', '14:30:00', 93, 0, 3, 2),
+(60, '2025-07-21', '15:15:00', 100, 1, 5, 1),
+(16, '2017-02-12', '11:00:00', 59, 1, 4, 3),
+(17, '2017-01-27', '10:30:00', 24, 1, 5, 4),
+(18, '2017-03-07', '15:00:00', 74, 0, 3, 5),
+(19, '2017-04-14', '09:45:00', 93, 1, 5, 1),
+(20, '2017-05-22', '11:20:00', 71, 1, 4, 3),
+(21, '2018-03-13', '14:00:00', 36, 1, 4, 5),
+(22, '2018-04-07', '16:30:00', 69, 1, 5, 4),
+(24, '2018-10-17', '12:15:00', 10, 1, 4, 1),
+(25, '2018-12-03', '09:30:00', 44, 1, 5, 5),
+(26, '2019-01-17', '11:45:00', 26, 1, 3, 2),
+(27, '2019-03-22', '15:20:00', 5, 0, 4, 4),
+(28, '2019-06-12', '17:00:00', 7, 1, 5, 5),
+(29, '2019-08-07', '10:10:00', 9, 1, 5, 3),
+(30, '2018-12-04', '13:30:00', 1, 1, 4, 2),
+(31, '2020-03-02', '11:00:00', 34, 1, 5, 4),
+(33, '2020-09-17', '15:45:00', 65, 0, 2, 5),
+(34, '2021-01-11', '10:20:00', 84, 1, 4, 3),
+(35, '2021-04-23', '14:30:00', 100, 1, 5, 1),
+(37, '2022-02-16', '16:00:00', 27, 1, 4, 1),
+(40, '2022-11-07', '11:15:00', 55, 1, 5, 4),
+(42, '2023-02-12', '10:45:00', 71, 0, 3, 5),
+(45, '2023-08-03', '12:00:00', 93, 1, 4, 3),
+(47, '2023-09-16', '14:50:00', 1, 1, 5, 1),
+(50, '2023-11-12', '16:10:00', 44, 1, 4, 5),
+(51, '2024-02-16', '10:00:00', 62, 1, 5, 4),
+(53, '2024-03-21', '11:30:00', 86, 1, 4, 3),
+(55, '2024-08-16', '13:45:00', 11, 0, 3, 2),
+(57, '2024-12-02', '15:20:00', 32, 1, 5, 1),
+(58, '2025-02-11', '09:15:00', 53, 1, 4, 3),
+(60, '2025-07-22', '11:00:00', 74, 1, 5, 4),
+(59, '2025-09-11', '14:30:00', 97, 1, 4, 3),
+(1, '2016-03-18', '16:00:00', 38, 1, 5, 5),
+(1, '2016-03-19', '17:20:00', 24, 1, 4, 3),
+(2, '2016-04-12', '11:30:00', 45, 1, 5, 4),
+(2, '2016-04-13', '12:45:00', 66, 1, 3, 1),
+(5, '2016-07-23', '10:00:00', 87, 1, 5, 4),
+(5, '2016-07-24', '14:15:00', 13, 0, 4, 3),
+(10, '2016-12-07', '15:30:00', 30, 1, 5, 5),
+(10, '2016-12-08', '16:45:00', 50, 1, 4, 3),
+(3, '2016-05-07', '10:00:00', 70, 1, 4, 5),
+(4, '2016-06-14', '11:30:00', 90, 1, 5, 4),
+(6, '2016-08-17', '14:00:00', 18, 1, 4, 3),
+(7, '2016-09-12', '16:15:00', 28, 0, 3, 5),
+(8, '2016-10-07', '09:45:00', 41, 1, 4, 3),
+(9, '2016-11-04', '11:20:00', 60, 1, 5, 4),
+(11, '2016-03-24', '13:00:00', 84, 1, 4, 5),
+(12, '2016-05-17', '15:30:00', 12, 1, 5, 4),
+(13, '2016-10-27', '17:00:00', 34, 0, 2, 5),
+(14, '2016-11-17', '10:30:00', 5, 1, 4, 3),
+(21, '2018-03-14', '09:15:00', 55, 1, 5, 4),
+(21, '2018-03-14', '14:30:00', 86, 1, 4, 3),
+(22, '2018-04-08', '11:00:00', 21, 0, 3, 5),
+(23, '2018-06-23', '18:20:00', 42, 1, 5, 4),
+(24, '2018-10-18', '10:45:00', 67, 1, 4, 3),
+(25, '2018-12-04', '15:30:00', 13, 1, 5, 5),
+(26, '2019-01-18', '09:00:00', 31, 1, 2, 5),
+(27, '2019-03-23', '12:00:00', 79, 0, 4, 3),
+(28, '2019-06-13', '14:15:00', 97, 1, 5, 4),
+(29, '2019-08-08', '16:50:00', 12, 1, 4, 5),
+(30, '2018-12-03', '14:30:00', 3, 1, 4, 4),
+(31, '2020-03-03', '10:30:00', 2, 1, 5, 4),
+(32, '2020-04-02', '11:15:00', 42, 0, 3, 5),
+(33, '2020-09-18', '15:00:00', 5, 1, 4, 3),
+(34, '2021-01-12', '09:45:00', 81, 1, 5, 4),
+(35, '2021-04-24', '14:00:00', 15, 1, 4, 1),
+(36, '2021-08-02', '16:30:00', 35, 0, 3, 4),
+(40, '2022-11-08', '11:00:00', 64, 1, 5, 3),
+(42, '2023-02-13', '13:20:00', 97, 1, 4, 5),
+(45, '2023-08-04', '10:00:00', 11, 1, 5, 4),
+(48, '2023-11-06', '15:45:00', 70, 1, 4, 3),
+(51, '2024-02-17', '09:30:00', 20, 1, 5, 4),
+(52, '2024-03-02', '11:20:00', 40, 1, 4, 5),
+(53, '2024-03-22', '14:10:00', 17, 0, 3, 4),
+(54, '2024-06-16', '16:00:00', 63, 1, 5, 3),
+(55, '2024-08-17', '10:45:00', 50, 1, 4, 5),
+(56, '2024-11-21', '09:15:00', 84, 1, 5, 4),
+(57, '2024-12-03', '12:30:00', 67, 0, 4, 3),
+(58, '2025-02-12', '15:00:00', 19, 1, 5, 4),
+(59, '2025-09-12', '11:45:00', 91, 1, 4, 5),
+(60, '2025-07-23', '13:00:00', 7, 1, 5, 4),
+(1, '2016-03-18', '18:00:00', 32, 1, 5, 1),
+(1, '2016-03-19', '19:30:00', 52, 1, 5, 3),
+(2, '2016-04-12', '14:00:00', 74, 1, 4, 5),
+(2, '2016-04-13', '15:30:00', 98, 0, 3, 5),
+(3, '2016-05-07', '11:00:00', 16, 1, 4, 1),
+(4, '2016-06-14', '10:20:00', 24, 1, 5, 4),
+(5, '2016-07-23', '09:45:00', 49, 1, 4, 3),
+(6, '2016-08-17', '16:00:00', 63, 1, 5, 1),
+(7, '2016-09-12', '17:30:00', 82, 0, 2, 5),
+(8, '2016-10-07', '11:15:00', 14, 1, 5, 1),
+(9, '2016-11-04', '14:45:00', 13, 1, 4, 5),
+(10, '2016-12-07', '18:00:00', 2, 1, 5, 4),
+(16, '2017-02-13', '10:00:00', 4, 1, 4, 5),
+(17, '2017-01-28', '15:20:00', 64, 1, 5, 3),
+(19, '2017-04-15', '09:00:00', 85, 1, 5, 4),
+(20, '2017-05-23', '11:30:00', 13, 0, 3, 5),
+(35, '2021-04-25', '16:00:00', 28, 1, 4, 3),
+(45, '2023-08-05', '09:45:00', 38, 1, 5, 4),
+(58, '2025-02-13', '14:00:00', 17, 1, 4, 5),
+(60, '2025-07-24', '17:30:00', 59, 1, 5, 4),
+(21, '2018-03-15', '16:45:00', 14, 1, 5, 3),
+(22, '2018-04-09', '14:20:00', 32, 1, 4, 5),
+(23, '2018-06-24', '15:10:00', 54, 0, 2, 3),
+(24, '2018-10-19', '11:30:00', 73, 1, 5, 4),
+(25, '2018-12-05', '13:00:00', 94, 1, 4, 5),
+(26, '2019-01-19', '10:15:00', 10, 1, 3, 5),
+(31, '2020-03-04', '14:50:00', 20, 1, 5, 4),
+(33, '2020-09-19', '16:00:00', 40, 1, 4, 1),
+(35, '2021-04-26', '12:30:00', 60, 0, 2, 3),
+(40, '2022-11-09', '15:20:00', 80, 1, 5, 4),
+(1, '2016-03-16', '13:00:00', 50, 1, 5, 1),
+(2, '2016-04-11', '10:45:00', 77, 1, 4, 5),
+(5, '2016-07-21', '15:30:00', 97, 1, 5, 4),
+(10, '2016-12-06', '16:20:00', 16, 1, 4, 5),
+(1, '2016-03-17', '18:10:00', 10, 1,5, 3),
+(16, '2017-02-14', '09:00:00', 27, 1, 4, 5),
+(17, '2017-01-29', '11:45:00', 46, 1, 5, 3),
+(19, '2017-04-16', '14:15:00', 64, 1, 3, 5),
+(21, '2018-03-16', '17:00:00', 87, 1, 4, 5),
+(22, '2018-04-10', '10:30:00', 15, 0, 2, 3),
+(51, '2024-02-18', '11:15:00', 1, 1, 5, 1),
+(52, '2024-03-03', '15:40:00', 35, 1, 4, 5),
+(53, '2024-03-23', '09:50:00', 55, 1, 5, 4),
+(57, '2024-12-04', '14:20:00', 72, 1, 4, 5),
+(60, '2025-07-25', '16:35:00', 97, 1, 5, 4),
+(45, '2023-08-01', '09:10:00', 18, 1, 5, 3),
+(45, '2023-08-01', '09:15:00', 29, 1, 4, 5),
+(45, '2023-08-01', '09:30:00', 37, 1, 5, 1),
+(45, '2023-08-01', '10:00:00', 47, 0, 3, 5),
+(45, '2023-08-01', '10:15:00', 55, 1, 4, 3),
+(15, '2016-06-07', '11:00:00', 62, 1, 5, 1),
+(28, '2019-06-14', '15:45:00', 81, 1, 4, 5),
+(38, '2021-11-16', '10:30:00', 13, 1, 5, 4),
+(44, '2023-06-16', '12:20:00', 20, 0, 3, 5),
+(47, '2023-10-06', '14:50:00', 45, 1, 5, 4),
+(54, '2024-06-17', '16:00:00', 65, 1, 4, 5),
+(58, '2025-02-14', '11:15:00', 86, 1, 5, 3),
+(3, '2016-05-08', '09:45:00', 10, 1, 4, 5),
+(4, '2016-06-15', '14:30:00', 16, 1, 5, 3),
+(6, '2016-08-18', '17:20:00', 34, 0, 3, 5),
+(11, '2016-03-25', '10:00:00', 15, 1, 4, 3),
+(12, '2016-05-18', '12:15:00', 27, 1, 5, 4),
+(13, '2016-10-28', '15:30:00', 95, 1, 4, 5),
+(14, '2016-11-18', '11:45:00', 17, 0, 2, 3),
+(18, '2017-03-08', '14:00:00', 26, 1, 5, 4),
+(19, '2017-04-16', '10:30:00', 48, 1, 4, 1),
+(20, '2017-05-24', '16:45:00', 62, 1, 5, 3),
+(37, '2022-02-17', '11:10:00', 83, 1, 4, 5),
+(42, '2023-02-14', '13:00:00', 10, 1, 5, 1),
+(59, '2025-09-13', '15:30:00', 100, 1, 4, 1),
+(1, '2016-03-15', '10:00:00', 12, 1, 5, 5),
+(2, '2016-04-10', '11:00:00', 23, 1, 4, 4),
+(3, '2016-05-06', '09:30:00', 25, 1, 5, 5),
+(4, '2016-06-13', '14:00:00', 39, 0, 3, 3),
+(5, '2016-07-20', '10:15:00', 43, 1, 4, 4),
+(6, '2016-08-16', '11:00:00', 46, 1, 5, 5),
+(7, '2016-09-11', '12:30:00', 56, 1, 4, 4),
+(8, '2016-10-06', '13:45:00', 58, 0, 2, 2),
+(9, '2016-11-03', '15:20:00', 61, 1, 5, 5),
+(10, '2016-12-05', '16:00:00', 68, 1, 4, 4),
+(11, '2016-03-23', '09:00:00', 72, 1, 5, 5),
+(12, '2016-05-16', '10:45:00', 75, 1, 4, 4),
+(13, '2016-10-26', '11:30:00', 76, 0, 3, 3),
+(14, '2016-11-16', '12:15:00', 80, 1, 5, 5),
+(15, '2016-06-06', '13:00:00', 85, 1, 4, 4),
+(16, '2017-02-10', '14:50:00', 92, 1, 5, 5),
+(17, '2017-01-26', '15:30:00', 96, 0, 2, 2),
+(18, '2017-03-06', '09:10:00', 99, 1, 4, 4),
+(19, '2017-04-13', '10:20:00', 29, 1, 5, 5),
+(20, '2017-05-21', '11:40:00', 47, 1, 4, 4),
+(21, '2018-03-11', '12:10:00', 52, 0, 3, 3),
+(22, '2018-04-06', '13:00:00', 63, 1, 5, 5),
+(23, '2018-06-21', '14:20:00', 77, 1, 4, 4),
+(24, '2018-10-16', '15:50:00', 82, 1, 5, 5),
+(25, '2018-12-02', '16:30:00', 98, 0, 3, 3),
+(26, '2019-01-16', '10:00:00', 16, 1, 4, 4);
