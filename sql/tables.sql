@@ -135,20 +135,19 @@ CREATE TABLE CONTRATO (
 
 --Evento Stand, tiene referencia de tabla tipo stand y evento
 CREATE TABLE EVENTO_ESTAND (
-	cod_evento INT NOT NULL,
-	cod_tipo_stand INT NOT NULL,
-	cantidad_estimada INT NOT NULL,
-	mts2 DECIMAL(10,2) NOT NULL,
-	precio DECIMAL(12,2) NOT NULL,
-
-	CONSTRAINT pk_evento_stand
-		GENERATED ALWAYS AS IDENTITY PRIMARY KEY (cod_evento, cod_tipo_stand),
-	CONSTRAINT fk_evento
-		FOREIGN KEY (cod_evento)
-		REFERENCES EVENTO(cod_evento),
-	CONSTRAINT fk_tipo_stand
-		FOREIGN KEY (cod_tipo_stand)
-		REFERENCES TIPO_STAND(cod_tipo_stand)
+    cod_evento INT NOT NULL,
+    cod_tipo_stand INT NOT NULL,
+    cantidad_estimada INT NOT NULL,
+    mts2 DECIMAL(10,2) NOT NULL,
+    precio DECIMAL(12,2) NOT NULL,
+    CONSTRAINT pk_evento_stand PRIMARY KEY (cod_evento, cod_tipo_stand),
+    
+    CONSTRAINT fk_evento
+        FOREIGN KEY (cod_evento)
+        REFERENCES EVENTO(cod_evento),
+    CONSTRAINT fk_tipo_stand
+        FOREIGN KEY (cod_tipo_stand)
+        REFERENCES TIPO_STAND(cod_tipo_stand)
 );
 
 --Entrada, tiene referencia de la tabla Leyenda_estrella, evento y visitante
