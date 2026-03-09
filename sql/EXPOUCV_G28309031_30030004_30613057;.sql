@@ -1,6 +1,171 @@
-SET search_path TO expoucv_g30030004;
+--Creacion de las tablas
+--Tablas que no dependen de otras
+--Tipo evento
+CREATE TABLE TIPO_EVENTO (
+	cod_tipo_evento INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	nb_tipo_evento VARCHAR(100) NOT NULL
+);
 
---SET search_path TO expoucv_g30030004, public; RECOMENDADO PARA FACILITAR LAS CONSULTAS
+--Categoria
+CREATE TABLE CATEGORIA (
+	cod_categoria INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	nb_categoria VARCHAR(100) NOT NULL
+);
+
+--Tipo stand
+CREATE TABLE TIPO_STAND (
+	cod_tipo_stand INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	nb_tipo_stand VARCHAR(100) NOT NULL
+);
+
+--Pais
+CREATE TABLE PAIS (
+	cod_pais INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	nb_pais VARCHAR(100) NOT NULL
+);
+
+--Cliente
+CREATE TABLE CLIENTE (
+	cod_cliente INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	nb_cliente VARCHAR(100) NOT NULL,
+	ci_rif VARCHAR(20) NOT NULL,
+	telefono VARCHAR(20),
+	direccion VARCHAR(255),
+	email VARCHAR(100)
+);
+
+--Leyenda estrellas
+CREATE TABLE LEYENDA_ESTRELLAS (
+	cod_leyenda_estrellas INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	nb_descripcion VARCHAR(100) NOT NULL
+);
+
+--Visitante
+CREATE TABLE VISITANTE (
+	cod_visitante INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	cedula VARCHAR(20) NOT NULL,
+	nb_visitante VARCHAR(100) NOT NULL,
+	sexo CHAR(1),
+	email VARCHAR(100)
+);
+
+--Tablas que si depende de otras
+--Subcategoria, tiene referencia a tabla categoria
+CREATE TABLE SUBCATEGORIA (
+	cod_sub_categoria INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	nb_sub_categoria VARCHAR(100) NOT NULL,
+	cod_categoria INT NOT NULL,
+
+	CONSTRAINT fk_categoria
+		FOREIGN KEY (cod_categoria)
+		REFERENCES CATEGORIA(cod_categoria)
+);
+
+--Ciudad, tiene refencia a tabla pais
+CREATE TABLE CIUDAD (
+	cod_ciudad INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	nb_ciudad VARCHAR (100) NOT NULL,
+	cod_pais INT NOT NULL,
+
+	CONSTRAINT fk_pais
+		FOREIGN KEY (cod_pais)
+		REFERENCES PAIS(cod_pais)
+);
+
+--Sede, tiene referencia a tabla ciudad
+CREATE TABLE SEDE (
+	cod_sede INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	nb_sede VARCHAR(100) NOT NULL,
+	cod_ciudad INT NOT NULL,
+
+	CONSTRAINT fk_ciudad
+		FOREIGN KEY (cod_ciudad)
+		REFERENCES CIUDAD(cod_ciudad )
+);
+
+--Evento, tiene refencia de tabla Tipo_evento y sede 
+CREATE TABLE EVENTO (
+	cod_evento INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	nb_evento VARCHAR(100) NOT NULL,
+	fecha_inicia DATE NOT NULL,
+	fecha_fin DATE NOT NULL,
+	descripcion VARCHAR(255),
+	cod_sede INT NOT NULL,
+	email VARCHAR(100),
+	cod_tipo_evento INT NOT NULL,
+
+	CONSTRAINT fk_sede
+		FOREIGN KEY (cod_sede)
+		REFERENCES SEDE(cod_sede),
+	CONSTRAINT fk_tipo_evento
+		FOREIGN KEY(cod_tipo_evento)
+		REFERENCES TIPO_EVENTO(cod_tipo_evento)
+);
+
+--Contrato, tiene refencia de tabla cliente, subcategoria, evento, tipo stand
+CREATE TABLE CONTRATO (
+	nro_stand INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	cod_evento INT NOT NULL,
+	cod_tipo_stand INT NOT NULL,
+	fecha_alquiler DATE NOT NULL,
+	cod_cliente INT NOT NULL,
+	mts2 DECIMAL(10,2) NOT NULL,
+	Monto DECIMAL(12,2) NOT NULL,
+	cod_sub_categoria INT NOT NULL,
+
+	CONSTRAINT fk_evento
+		FOREIGN KEY (cod_evento)
+		REFERENCES EVENTO(cod_evento),
+	CONSTRAINT fk_tipo_stand
+		FOREIGN KEY (cod_tipo_stand)
+		REFERENCES TIPO_STAND(cod_tipo_stand),
+	CONSTRAINT fk_cliente
+		FOREIGN KEY (cod_cliente)
+		REFERENCES CLIENTE(cod_cliente),
+	CONSTRAINT fk_sub_categoria
+		FOREIGN KEY (cod_sub_categoria)
+		REFERENCES SUBCATEGORIA(cod_sub_categoria) 
+);
+
+--Evento Stand, tiene referencia de tabla tipo stand y evento
+CREATE TABLE EVENTO_ESTAND (
+    cod_evento INT NOT NULL,
+    cod_tipo_stand INT NOT NULL,
+    cantidad_estimada INT NOT NULL,
+    mts2 DECIMAL(10,2) NOT NULL,
+    precio DECIMAL(12,2) NOT NULL,
+    CONSTRAINT pk_evento_stand PRIMARY KEY (cod_evento, cod_tipo_stand),
+    
+    CONSTRAINT fk_evento
+        FOREIGN KEY (cod_evento)
+        REFERENCES EVENTO(cod_evento),
+    CONSTRAINT fk_tipo_stand
+        FOREIGN KEY (cod_tipo_stand)
+        REFERENCES TIPO_STAND(cod_tipo_stand)
+);
+
+--Entrada, tiene referencia de la tabla Leyenda_estrella, evento y visitante
+CREATE TABLE ENTRADA (
+	nro_entrada INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	cod_evento INT NOT NULL,
+	fecha_entrada DATE NOT NULL,
+	hora_entrada TIME NOT NULL,
+	cod_visitante INT NOT NULL,
+	recomienda_amigo INT NOT NULL,
+	calificacion INT NOT NULL,
+	cod_leyenda_estrellas INT NOT NULL,
+
+	CONSTRAINT fk_evento
+		FOREIGN KEY (cod_evento)
+		REFERENCES EVENTO(cod_evento),
+	CONSTRAINT fk_visitante
+		FOREIGN KEY (cod_visitante)
+		REFERENCES VISITANTE(cod_visitante),
+	CONSTRAINT fk_leyenda_estrellas
+		FOREIGN KEY (cod_leyenda_estrellas)
+		REFERENCES LEYENDA_ESTRELLAS(cod_leyenda_estrellas)
+);
+
 -- 1. Insertar PAIS (Sin incluir cod_pais)
 INSERT INTO PAIS (nb_pais) VALUES
 ('Venezuela'),
@@ -439,67 +604,46 @@ INSERT INTO EVENTO (nb_evento, fecha_inicia, fecha_fin, descripcion, cod_sede, e
 ('Expo Retail 2025', '2025-09-10', '2025-09-12', 'Comercio electrónico', 21, 'retail@citibanamex.mx', 1);
 
 INSERT INTO EVENTO_ESTAND (cod_evento, cod_tipo_stand, cantidad_estimada, mts2, precio) VALUES
--- Evento 1 (Expo Tecno 2016)
 (1, 2, 10, 9.00, 1500.00),
 (1, 3, 5, 25.00, 5000.00),
--- Evento 2 (Feria Gastronómica CCS)
 (2, 1, 20, 4.00, 800.00),
 (2, 4, 8, 9.00, 1200.00),
--- Evento 3 (Congreso Médico Bogotá)
 (3, 2, 15, 9.00, 1800.00),
 (3, 9, 10, 2.00, 500.00),
--- Evento 4 (Expo Mueble Medellín)
 (4, 8, 5, 30.00, 6500.00),
 (4, 3, 3, 50.00, 9000.00),
--- Evento 5 (Feria del Libro BA)
 (5, 1, 50, 4.00, 600.00),
 (5, 7, 20, 2.00, 300.00),
--- Evento 6 (Auto Show CDMX)
 (6, 10, 10, 100.00, 15000.00),
 (6, 6, 5, 200.00, 25000.00),
--- Evento 7 (Semana de la Moda Madrid)
 (7, 2, 12, 12.00, 2500.00),
 (7, 8, 4, 35.00, 7000.00),
--- Evento 8 (Expo Construcción Cali)
 (8, 5, 15, 40.00, 4500.00),
 (8, 3, 5, 60.00, 8500.00),
--- Evento 9 (Congreso Minero Monterrey)
 (9, 6, 8, 150.00, 18000.00),
 (9, 2, 10, 9.00, 2000.00),
--- Evento 10 (Feria Navideña Valencia)
 (10, 1, 30, 4.00, 500.00),
 (10, 4, 10, 9.00, 950.00),
--- Evento 11 (Expo Agro Rosario)
 (11, 5, 20, 100.00, 3500.00),
 (11, 10, 5, 80.00, 12000.00),
--- Evento 12 (Boda Expo Barcelona)
 (12, 2, 15, 9.00, 2200.00),
 (12, 4, 10, 12.00, 2800.00),
--- Evento 13 (Salón del Ocio Bogotá)
 (13, 1, 40, 4.00, 700.00),
 (13, 3, 6, 20.00, 4000.00),
--- Evento 14 (Expo Artesanía Maracaibo)
 (14, 7, 25, 2.00, 250.00),
 (14, 1, 15, 4.00, 450.00),
--- Evento 15 (Congreso Educativo Puebla)
 (15, 9, 12, 2.00, 400.00),
 (15, 2, 8, 9.00, 1300.00),
--- Evento 16 (Global Tech 2017)
 (16, 3, 10, 30.00, 7500.00),
 (16, 10, 4, 60.00, 14000.00),
--- Evento 17 (Feria Textil Medellín)
 (17, 2, 20, 9.00, 1900.00),
 (17, 8, 5, 25.00, 5500.00),
--- Evento 18 (Expo Vino Mendoza)
 (18, 4, 12, 9.00, 1600.00),
 (18, 7, 15, 3.00, 600.00),
--- Evento 19 (Congreso Energía CDMX)
 (19, 6, 6, 100.00, 12000.00),
 (19, 2, 10, 9.00, 2100.00),
--- Evento 20 (Feria del Hogar Caracas)
 (20, 1, 35, 6.00, 850.00),
 (20, 3, 8, 25.00, 3800.00),
--- Eventos del 21 al 30 (Mezcla de stands básicos y corporativos)
 (21, 1, 40, 4.00, 450.00),
 (21, 2, 10, 9.00, 1100.00),
 (22, 6, 4, 120.00, 15000.00),
@@ -515,7 +659,6 @@ INSERT INTO EVENTO_ESTAND (cod_evento, cod_tipo_stand, cantidad_estimada, mts2, 
 (28, 7, 30, 2.00, 280.00),
 (29, 8, 4, 40.00, 8000.00),
 (30, 4, 10, 9.00, 1150.00),
--- Eventos del 31 al 40 (Especializados)
 (31, 2, 25, 9.00, 2100.00),
 (32, 1, 45, 4.00, 750.00),
 (33, 10, 6, 120.00, 18000.00),
@@ -528,7 +671,6 @@ INSERT INTO EVENTO_ESTAND (cod_evento, cod_tipo_stand, cantidad_estimada, mts2, 
 (38, 9, 15, 2.00, 300.00),
 (39, 5, 10, 45.00, 3800.00),
 (40, 3, 5, 30.00, 6200.00),
--- Eventos del 41 al 50 (Variedad de formatos)
 (41, 2, 14, 9.00, 1550.00),
 (42, 6, 2, 180.00, 22000.00),
 (43, 1, 35, 4.00, 600.00),
@@ -539,7 +681,6 @@ INSERT INTO EVENTO_ESTAND (cod_evento, cod_tipo_stand, cantidad_estimada, mts2, 
 (48, 1, 50, 4.00, 420.00),
 (49, 2, 20, 9.00, 1350.00),
 (50, 7, 25, 2.00, 310.00),
--- Eventos del 51 al 60 (Cierre de la lista)
 (51, 9, 15, 2.00, 290.00),
 (52, 4, 10, 9.00, 1200.00),
 (53, 2, 30, 9.00, 2300.00),
@@ -557,7 +698,6 @@ INSERT INTO EVENTO_ESTAND (cod_evento, cod_tipo_stand, cantidad_estimada, mts2, 
 -- CONTRATO
 
 INSERT INTO CONTRATO (cod_evento, cod_tipo_stand, fecha_alquiler, cod_cliente, mts2, Monto, cod_sub_categoria) VALUES
--- Contratos para Eventos de 2016
 (1, 2, '2016-01-15', 1, 9.00, 1500.00, 1),
 (1, 3, '2016-01-20', 2, 25.00, 5000.00, 2),
 (2, 1, '2016-02-10', 3, 4.00, 800.00, 3),
@@ -568,8 +708,6 @@ INSERT INTO CONTRATO (cod_evento, cod_tipo_stand, fecha_alquiler, cod_cliente, m
 (6, 10, '2016-06-15', 3, 100.00, 15000.00, 1),
 (7, 2, '2016-07-10', 4, 12.00, 2500.00, 7),
 (8, 5, '2016-08-05', 5, 40.00, 4500.00, 1),
-
--- Contratos para Eventos de 2017
 (16, 3, '2016-12-10', 1, 30.00, 7500.00, 2),
 (16, 10, '2016-12-15', 2, 60.00, 14000.00, 1),
 (17, 2, '2017-01-05', 3, 9.00, 1900.00, 7),
@@ -580,8 +718,6 @@ INSERT INTO CONTRATO (cod_evento, cod_tipo_stand, fecha_alquiler, cod_cliente, m
 (12, 2, '2016-04-10', 3, 9.00, 2200.00, 8),
 (13, 3, '2016-09-01', 4, 20.00, 4000.00, 6),
 (14, 7, '2016-10-15', 5, 2.00, 250.00, 8),
-
--- Contratos para Eventos de 2018 - 2019
 (21, 1, '2018-01-10', 1, 4.00, 450.00, 1),
 (21, 2, '2018-01-12', 2, 9.00, 1100.00, 2),
 (22, 6, '2018-04-05', 3, 120.00, 15000.00, 1),
@@ -592,8 +728,6 @@ INSERT INTO CONTRATO (cod_evento, cod_tipo_stand, fecha_alquiler, cod_cliente, m
 (27, 3, '2019-03-20', 3, 30.00, 5500.00, 1),
 (28, 7, '2019-06-10', 4, 2.00, 280.00, 3),
 (29, 8, '2019-08-05', 5, 40.00, 8000.00, 7),
-
--- Contratos para Eventos de 2020 - 2023
 (31, 2, '2020-03-01', 1, 9.00, 2100.00, 2),
 (33, 10, '2020-09-15', 2, 120.00, 18000.00, 1),
 (34, 3, '2021-01-10', 3, 20.00, 4200.00, 1),
@@ -604,8 +738,6 @@ INSERT INTO CONTRATO (cod_evento, cod_tipo_stand, fecha_alquiler, cod_cliente, m
 (45, 10, '2023-08-01', 3, 90.00, 11000.00, 1),
 (47, 8, '2023-09-15', 4, 50.00, 9200.00, 1),
 (50, 7, '2023-11-10', 5, 2.00, 310.00, 3),
-
--- Contratos para Eventos de 2024 - 2025
 (51, 9, '2024-01-05', 1, 2.00, 290.00, 1),
 (53, 2, '2024-03-20', 2, 9.00, 2300.00, 2),
 (55, 3, '2024-08-15', 3, 40.00, 7800.00, 1),
@@ -616,19 +748,16 @@ INSERT INTO CONTRATO (cod_evento, cod_tipo_stand, fecha_alquiler, cod_cliente, m
 (58, 2, '2025-01-15', 3, 9.00, 1500.00, 1),
 (38, 9, '2021-12-10', 4, 2.00, 300.00, 10),
 (10, 4, '2016-11-01', 5, 9.00, 950.00, 3),
--- Contratos adicionales para eventos 2017-2018
 (15, 2, '2016-05-01', 1, 9.00, 1300.00, 5),
 (15, 9, '2016-05-05', 2, 2.00, 400.00, 6),
 (30, 4, '2018-10-01', 3, 9.00, 1150.00, 4),
 (27, 2, '2019-02-15', 4, 9.00, 1650.00, 1),
 (14, 1, '2016-10-20', 5, 4.00, 450.00, 8),
--- Contratos para eventos 2019-2021
 (31, 2, '2020-02-10', 1, 9.00, 2100.00, 2),
 (32, 1, '2020-04-01', 2, 4.00, 750.00, 3),
 (34, 4, '2020-12-15', 3, 9.00, 1400.00, 1),
 (36, 1, '2021-08-01', 4, 4.00, 550.00, 9),
 (38, 7, '2021-11-20', 5, 3.00, 450.00, 10),
--- Bloque para eventos del 40 al 50
 (41, 2, '2023-03-01', 1, 9.00, 1550.00, 2),
 (43, 1, '2023-05-15', 2, 4.00, 600.00, 4),
 (44, 4, '2023-06-20', 3, 12.00, 1750.00, 3),
@@ -636,13 +765,11 @@ INSERT INTO CONTRATO (cod_evento, cod_tipo_stand, fecha_alquiler, cod_cliente, m
 (48, 1, '2023-11-05', 5, 4.00, 420.00, 6),
 (49, 2, '2023-12-10', 1, 9.00, 1350.00, 5),
 (50, 7, '2023-12-20', 2, 2.00, 310.00, 3),
--- Bloque para eventos 2024-2025 (Futuros)
 (52, 4, '2024-03-01', 3, 9.00, 1200.00, 1),
 (54, 5, '2024-06-15', 4, 30.00, 2800.00, 1),
 (56, 1, '2024-11-20', 5, 4.00, 500.00, 9),
 (59, 7, '2025-07-10', 1, 2.00, 340.00, 5),
 (60, 4, '2025-08-05', 2, 9.00, 1450.00, 7),
--- Registros para diversificar stands en mismos eventos
 (1, 1, '2016-01-25', 3, 4.00, 700.00, 1),
 (6, 1, '2016-07-01', 4, 4.00, 800.00, 2),
 (16, 2, '2016-12-20', 5, 9.00, 1800.00, 1),
@@ -651,7 +778,6 @@ INSERT INTO CONTRATO (cod_evento, cod_tipo_stand, fecha_alquiler, cod_cliente, m
 (35, 3, '2021-04-25', 3, 25.00, 5000.00, 2),
 (45, 3, '2023-08-10', 4, 20.00, 4500.00, 1),
 (55, 2, '2024-08-20', 5, 9.00, 2000.00, 1),
--- Más contratos variados
 (10, 1, '2016-11-05', 1, 4.00, 400.00, 3),
 (12, 4, '2016-04-15', 2, 12.00, 2800.00, 8),
 (18, 7, '2017-02-20', 3, 3.00, 600.00, 4),
