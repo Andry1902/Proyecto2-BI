@@ -436,11 +436,11 @@
   <notepads>
   </notepads>
   <connection>
-    <name>ConnetionDW</name>
+    <name>BDTransaccional</name>
     <server>localhost</server>
     <type>POSTGRESQL</type>
     <access>Native</access>
-    <database>EXPOUCV _DW_G28309031_30030004_30613057</database>
+    <database>EXPOUCV_G28309031_30030004_30613057</database>
     <port>5433</port>
     <username>postgres</username>
     <password>Encrypted 2be98afc86aa7f2e4cb79ce108fcbff88</password>
@@ -487,11 +487,11 @@
     </attributes>
   </connection>
   <connection>
-    <name>BDTransaccional</name>
+    <name>ConnetionDW</name>
     <server>localhost</server>
     <type>POSTGRESQL</type>
     <access>Native</access>
-    <database>EXPOUCV_G28309031_30030004_30613057</database>
+    <database>EXPOUCV _DW_G28309031_30030004_30613057</database>
     <port>5433</port>
     <username>postgres</username>
     <password>Encrypted 2be98afc86aa7f2e4cb79ce108fcbff88</password>
@@ -663,8 +663,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>32</xloc>
-      <yloc>704</yloc>
+      <xloc>64</xloc>
+      <yloc>656</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -794,8 +794,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>272</xloc>
-      <yloc>704</yloc>
+      <xloc>304</xloc>
+      <yloc>656</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -852,8 +852,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>656</xloc>
-      <yloc>704</yloc>
+      <xloc>688</xloc>
+      <yloc>656</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -910,8 +910,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>864</xloc>
-      <yloc>704</yloc>
+      <xloc>896</xloc>
+      <yloc>656</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -961,7 +961,7 @@
         <rename/>
         <creation_method>tablemax</creation_method>
         <use_autoinc>N</use_autoinc>
-        <version>version</version>
+        <version>nr_version</version>
       </return>
     </fields>
     <sequence/>
@@ -982,8 +982,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>224</xloc>
-      <yloc>496</yloc>
+      <xloc>272</xloc>
+      <yloc>480</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1043,7 +1043,7 @@
         <rename/>
         <creation_method>tablemax</creation_method>
         <use_autoinc>N</use_autoinc>
-        <version>version</version>
+        <version>nr_version</version>
       </return>
     </fields>
     <sequence/>
@@ -1064,8 +1064,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>224</xloc>
-      <yloc>256</yloc>
+      <xloc>272</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1120,7 +1120,7 @@
         <rename/>
         <creation_method>tablemax</creation_method>
         <use_autoinc>N</use_autoinc>
-        <version>version</version>
+        <version>nr_version</version>
       </return>
     </fields>
     <sequence/>
@@ -1141,8 +1141,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>224</xloc>
-      <yloc>576</yloc>
+      <xloc>272</xloc>
+      <yloc>560</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1182,7 +1182,7 @@
         <rename/>
         <creation_method>tablemax</creation_method>
         <use_autoinc>N</use_autoinc>
-        <version>version</version>
+        <version>nr_version</version>
       </return>
     </fields>
     <sequence/>
@@ -1203,8 +1203,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>224</xloc>
-      <yloc>176</yloc>
+      <xloc>256</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1264,7 +1264,7 @@
         <rename/>
         <creation_method>tablemax</creation_method>
         <use_autoinc>N</use_autoinc>
-        <version>version</version>
+        <version>nr_version</version>
       </return>
     </fields>
     <sequence/>
@@ -1285,8 +1285,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>224</xloc>
-      <yloc>416</yloc>
+      <xloc>272</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1326,7 +1326,7 @@
         <rename/>
         <creation_method>tablemax</creation_method>
         <use_autoinc>N</use_autoinc>
-        <version>version</version>
+        <version>nr_version</version>
       </return>
     </fields>
     <sequence/>
@@ -1347,8 +1347,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>224</xloc>
-      <yloc>336</yloc>
+      <xloc>272</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1399,11 +1399,11 @@
         <update>Insert</update>
       </field>
       <return>
-        <name>SK_VISITANE</name>
+        <name>SK_VISITANTE</name>
         <rename/>
         <creation_method>tablemax</creation_method>
         <use_autoinc>N</use_autoinc>
-        <version>version</version>
+        <version>nr_version</version>
       </return>
     </fields>
     <sequence/>
@@ -1424,8 +1424,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>224</xloc>
-      <yloc>96</yloc>
+      <xloc>272</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1524,8 +1524,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>688</xloc>
-      <yloc>832</yloc>
+      <xloc>720</xloc>
+      <yloc>784</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1559,8 +1559,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>144</xloc>
-      <yloc>704</yloc>
+      <xloc>176</xloc>
+      <yloc>656</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1637,8 +1637,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1040</xloc>
-      <yloc>832</yloc>
+      <xloc>1072</xloc>
+      <yloc>784</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1715,8 +1715,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1040</xloc>
-      <yloc>704</yloc>
+      <xloc>1072</xloc>
+      <yloc>656</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1780,8 +1780,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>864</xloc>
-      <yloc>832</yloc>
+      <xloc>896</xloc>
+      <yloc>784</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1858,8 +1858,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>512</xloc>
-      <yloc>704</yloc>
+      <xloc>544</xloc>
+      <yloc>656</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2015,8 +2015,8 @@ JOIN "public".evento e ON t."cod_tipo_evento" = e."cod_tipo_evento";</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>48</xloc>
-      <yloc>576</yloc>
+      <xloc>96</xloc>
+      <yloc>560</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2093,8 +2093,8 @@ JOIN "public".evento e ON t."cod_tipo_evento" = e."cod_tipo_evento";</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>384</xloc>
-      <yloc>704</yloc>
+      <xloc>416</xloc>
+      <yloc>656</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2226,8 +2226,8 @@ JOIN "public".subcategoria s ON c."cod_categoria" = s."cod_categoria";</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>48</xloc>
-      <yloc>496</yloc>
+      <xloc>96</xloc>
+      <yloc>480</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2311,8 +2311,8 @@ FROM "public".tipo_stand
       </output>
     </remotesteps>
     <GUI>
-      <xloc>48</xloc>
-      <yloc>336</yloc>
+      <xloc>96</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2396,8 +2396,8 @@ FROM "public".leyenda_estrellas
       </output>
     </remotesteps>
     <GUI>
-      <xloc>48</xloc>
-      <yloc>176</yloc>
+      <xloc>96</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2553,8 +2553,8 @@ FROM "public".visitante
       </output>
     </remotesteps>
     <GUI>
-      <xloc>48</xloc>
-      <yloc>96</yloc>
+      <xloc>96</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2734,8 +2734,8 @@ FROM "public".cliente
       </output>
     </remotesteps>
     <GUI>
-      <xloc>48</xloc>
-      <yloc>256</yloc>
+      <xloc>96</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2916,8 +2916,8 @@ JOIN "public".pais p ON c."cod_pais" = p."cod_pais";</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>48</xloc>
-      <yloc>416</yloc>
+      <xloc>96</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
